@@ -1,4 +1,4 @@
-package com.aos.backend.model.DTO;
+package com.aos.backend.DTO;
 
 import java.math.BigDecimal;
 
