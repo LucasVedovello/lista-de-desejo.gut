@@ -1,13 +1,13 @@
-package com.aos.backend;
+package com.wishlist.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BackendApplication {
+public class WishlistApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BackendApplication.class, args);
+		SpringApplication.run(WishlistApiApplication.class, args);
 	}
 
 }

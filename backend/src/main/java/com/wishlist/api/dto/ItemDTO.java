@@ -1,16 +1,17 @@
-package com.aos.backend.DTO;
+package com.wishlist.api.dto;
 
 import java.math.BigDecimal;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Schema(description = "Representação de um desejo")
-public class WishDTO {
+public class ItemDTO {
 
     @Schema(
         description = "Identificador do desejo, atribuído pelo servidor",
@@ -31,17 +32,17 @@ public class WishDTO {
 
     @Size(max = 100, message = "A prioridade deve ter no máximo 100 caracteres")
     @Schema(
-        description = "Prioridade do desejo",
-        example = "Baixa",
-        maxLength = 100,
-        requiredMode = Schema.RequiredMode.REQUIRED
+        description = "Prioridade do desejo, opcional",
+        example = "alta",
+        maxLength = 100
     )
     private String prioridade;
 
+    @NotNull(message = "Preço é necessário")
     @DecimalMin(
         value = "0.0",
-        inclusive = false,
-        message = "Preço deve ser maior que zero"
+        inclusive = true,
+        message = "Preço não pode ser negativo"
     )
     @Digits(
         integer = 10,
@@ -50,33 +51,32 @@ public class WishDTO {
     )
     @Schema(
         description = "Preço do desejo",
-        example = "30000.00"
+        example = "30000.00",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     private BigDecimal preco;
 
     @Schema(
-        description = "Estado de conclusão. Se omitido em um PUT, o estado atual é preservado",
+        description = "Estado de compra. Se omitido em um PUT, o estado atual é preservado",
         example = "false"
     )
-    private Boolean completed;
+    private Boolean comprado;
 
-    public WishDTO() {
-        this.nome = "";
-        this.completed = false;
+    public ItemDTO() {
     }
 
-    public WishDTO(
+    public ItemDTO(
             Long id,
             String nome,
             String prioridade,
             BigDecimal preco,
-            Boolean completed
+            Boolean comprado
     ) {
         this.id = id;
         this.nome = nome;
         this.prioridade = prioridade;
         this.preco = preco;
-        this.completed = completed;
+        this.comprado = comprado;
     }
 
     public Long getId() {
@@ -95,12 +95,8 @@ public class WishDTO {
         return preco;
     }
 
-    public Boolean getCompleted() {
-        return completed;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public Boolean getComprado() {
+        return comprado;
     }
 
     public void setNome(String nome) {
@@ -115,7 +111,7 @@ public class WishDTO {
         this.preco = preco;
     }
 
-    public void setCompleted(Boolean completed) {
-        this.completed = completed;
+    public void setComprado(Boolean comprado) {
+        this.comprado = comprado;
     }
 }
